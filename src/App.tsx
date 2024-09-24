@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Create from './pages/Create'
 import Update from './pages/Update'
 import supabase from './config/supabaseClient';
+import SmoothieDetail from './pages/SmoothieDetail';
 
 function App() {
   console.log(supabase);
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/create' element={<Create/>}/>
+        <Route path='/smoothie-detail/:id' element={<SmoothieDetail/>}/>
         <Route path='/:id' element={<Update/>}/>        
       </Routes>
     </BrowserRouter>
