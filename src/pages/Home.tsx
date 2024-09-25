@@ -43,13 +43,14 @@ export default function Home() {
     };
   }, [startTimeRef])
   
+  
   const handleSmoothieClick = (id: string) => {
     navigate(`/smoothie-detail/${id}`)
   }
 
   return (
     <>
-      <div className="flex-col space-y-3 mx-3 my-2">
+      <div className="w-screen flex-col space-y-3 mx-3 my-2">
         {
           smoothies ?
             smoothies.map((smoothie) => (
