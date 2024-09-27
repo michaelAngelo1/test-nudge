@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query"
 import supabase from "../config/supabaseClient"
 import { Question } from "../interface/interface";
 import { useState } from "react";
+import { PersonalInfo } from "../interface/questionnaire/personalInfoInterface";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function Questionnaire() {
 
@@ -15,8 +17,8 @@ export default function Questionnaire() {
         .from('questions')
         .select('*')
       
-      if(questionsQuery.error) {
-        setFetchError('An error has occured.');
+      if(error) {
+        setFetchError('An error has occured while fetching from Supabase.');
       }
 
       if(data) {
@@ -25,7 +27,11 @@ export default function Questionnaire() {
 
       return data;
     }
-  })
+  });
+
+  // Form responses
+  const { register, handleSubmit } = useForm<PersonalInfo>();
+  const onSubmitPersonalInfo: SubmitHandler<PersonalInfo> = (data) => console.log(data);
 
   if(questionsQuery.isLoading) return <div className="text-2xl text-white">Loading...</div>
 
@@ -33,13 +39,22 @@ export default function Questionnaire() {
 
   return (
     <div className="w-screen flex-col space-y-3 px-3 py-2">
-      {
-        questions.map((question) => (
-          <div className="p-3 bg-blue-900 w-auto">
-            <div className="text-xl text-start font-medium text-white">{question.question_text}</div>
-          </div>
-        ))
-      }
+      <form onSubmit={handleSubmit(onSubmitPersonalInfo)}>
+        { questions.filter((question) => {return question.question_text.includes('name')}).map((question) => ( <div>{question.question_text}</div> ))}
+        <input 
+          className="w-full mt-3 px-2 py-1" 
+          {...register("name", { required: false })} 
+        />
+        { questions.filter((question) => {return question.question_text.includes('age')}).map((question) => ( <div>{question.question_text}</div> ))}
+        <input 
+          className="w-full mt-3 px-2 py-1"
+          type='number' 
+          {...register("age", { required: false })} 
+        />
+        <div className='btn btn-primary mt-3'>
+          <input type="submit" />
+        </div>
+      </form>
     </div>
   )
 }
