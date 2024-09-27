@@ -16,7 +16,7 @@ export default function Home() {
     const fetchSmoothies = async () => {
       const { data , error } = await supabase
         .from('smoothies')
-        .select("*");
+        .select("*")
         
         if(error) {
           setFetchError('Could not fetch data from table smoothies');

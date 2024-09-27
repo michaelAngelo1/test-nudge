@@ -6,6 +6,7 @@ import supabase from './config/supabaseClient';
 import SmoothieDetail from './pages/SmoothieDetail';
 import { useState } from 'react';
 import ModalWithText from './reusables/ModalWithText';
+import Questionnaire from './pages/Questionnaire';
 
 function App() {
   console.log(supabase);
@@ -19,8 +20,8 @@ function App() {
     <BrowserRouter>
       <div className='navbar bg-base-100'>
         <div className='flex-1'>
-          <a className='btn btn-ghost text-xl'>SupaMike Smoothies</a>
-          <Link className='btn btn-ghost text-xl text-blue-500' to='/'>Home</Link>
+          <a href='/' className='btn btn-ghost text-xl'>SupaMike Smoothies</a>
+          <Link className='btn btn-ghost text-xl text-blue-500' to='/home'>Home</Link>
         </div>
         <div className="flex-none">
           
@@ -34,7 +35,8 @@ function App() {
         closeModal={closeModal}
       />
       <Routes>
-        <Route path='/' element={<Home/>}/>
+        <Route path='/home' element={<Home/>}/>
+        <Route path='/' element={<Questionnaire/>}/>
         <Route path='/create' element={<Create/>}/>
         <Route path='/smoothie-detail/:id' element={<SmoothieDetail/>}/>
         <Route path='/:id' element={<Update/>}/>        
