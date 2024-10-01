@@ -12,7 +12,7 @@ export default {
     },
     screens: {
       'mobile': '600px',
-      
+      'tablet': '800px',
       'laptop': '1000px'
     }
   },

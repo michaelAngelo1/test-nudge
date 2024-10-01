@@ -21,16 +21,15 @@ function App() {
       <div className='navbar bg-base-100'>
         <div className='flex-1'>
           <a href='/' className='btn btn-ghost text-xl'>SupaMike Smoothies</a>
-          <Link className='btn btn-ghost text-xl text-blue-500' to='/home'>Home</Link>
+          <Link className='p-3 btn btn-ghost text-lg text-blue-500' to='/home'>Home</Link>
         </div>
         <div className="flex-none">
-          
-          <Link className='btn btn-ghost text-xl text-blue-500' to='/create'>Create New Smoothie</Link>
+          <Link className='p-3 btn btn-ghost text-lg text-blue-500' to='/create'>Create</Link>
         </div>
       </div>
       <ModalWithText 
         title='This is a research study. You may be asked several personal questions.' 
-        text='It is in our best interest to protect your information. Anything inputted here would be used to support a research titled The Effects of Nudge on Decision-making by Professor Lundy'
+        text='It is in our best interest to protect your information. Anything inputted here would be used to support a research titled The Effects of Nudge on Decision-making by Professor Idha'
         openModal={modalEnable}
         closeModal={closeModal}
       />

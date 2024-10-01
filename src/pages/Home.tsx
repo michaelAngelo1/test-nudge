@@ -50,7 +50,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-screen flex-col space-y-3 mx-3 my-2">
+      <div className="w-screen flex-col space-y-3 mx-3 my-2 max-mobile:w-auto">
         {
           smoothies ?
             smoothies.map((smoothie) => (

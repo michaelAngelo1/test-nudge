@@ -29,9 +29,14 @@ export default function Questionnaire() {
     }
   });
 
-  // Form responses
+  // Submit responses
   const { register, handleSubmit } = useForm<PersonalInfo>();
-  const onSubmitPersonalInfo: SubmitHandler<PersonalInfo> = (data) => console.log(data);
+  const onSubmitPersonalInfo: SubmitHandler<PersonalInfo> = (data) => {
+    console.log('responses inputted: ', data);
+
+    // submit responses to supabase
+    
+  }
 
   if(questionsQuery.isLoading) return <div className="text-2xl text-white">Loading...</div>
 
