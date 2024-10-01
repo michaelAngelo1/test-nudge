@@ -1,14 +1,16 @@
 import { useQuery } from "@tanstack/react-query"
 import supabase from "../config/supabaseClient"
 import { Question } from "../interface/interface";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PersonalInfo } from "../interface/questionnaire/personalInfoInterface";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export default function Questionnaire() {
 
   const [questions, setQuestions] = useState<Question[]>([]); 
   const [fetchError, setFetchError] = useState('');
+  const navigate = useNavigate();
 
   const questionsQuery = useQuery({
     queryKey: ['questions'],
@@ -31,12 +33,34 @@ export default function Questionnaire() {
 
   // Submit responses
   const { register, handleSubmit } = useForm<PersonalInfo>();
-  const onSubmitPersonalInfo: SubmitHandler<PersonalInfo> = (data) => {
+  const onSubmitPersonalInfo: SubmitHandler<PersonalInfo> = async (data) => {
     console.log('responses inputted: ', data);
 
-    // submit responses to supabase
-    
+    // // submit responses to supabase
+    // const { error } = await supabase
+    //   .from('users')
+    //   .insert([
+    //     { 
+    //       name: data.name,
+    //       age: data.age
+    //     }
+    //   ])
+
+    // if(error) {
+    //   console.log('error submit data')
+    //   alert('Error submit data');
+    // } else {
+    //   setSuccess(true);
+    // }
   }
+
+  // Redirect to StartPage if the page was refreshed
+  useEffect(() => {
+    if (sessionStorage.getItem('fromQuestionnaire') === 'true') {
+      sessionStorage.removeItem('fromQuestionnaire'); // Clear flag after check
+      window.location.href = '/'; // Redirect to StartPage
+    }
+  }, [navigate]);
 
   if(questionsQuery.isLoading) return <div className="text-2xl text-white">Loading...</div>
 
