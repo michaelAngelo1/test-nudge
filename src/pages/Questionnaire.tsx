@@ -32,26 +32,27 @@ export default function Questionnaire() {
   });
 
   // Submit responses
+  const [success, setSuccess] = useState(false);
   const { register, handleSubmit } = useForm<PersonalInfo>();
   const onSubmitPersonalInfo: SubmitHandler<PersonalInfo> = async (data) => {
     console.log('responses inputted: ', data);
 
-    // // submit responses to supabase
-    // const { error } = await supabase
-    //   .from('users')
-    //   .insert([
-    //     { 
-    //       name: data.name,
-    //       age: data.age
-    //     }
-    //   ])
+    // submit responses to supabase
+    const { error } = await supabase
+      .from('users')
+      .insert([
+        { 
+          name: data.name,
+          age: data.age
+        }
+      ])
 
-    // if(error) {
-    //   console.log('error submit data')
-    //   alert('Error submit data');
-    // } else {
-    //   setSuccess(true);
-    // }
+    if(error) {
+      console.log('error submit data')
+      alert('Error submit data');
+    } else {
+      setSuccess(true);
+    }
   }
 
   // Redirect to StartPage if the page was refreshed
@@ -83,6 +84,7 @@ export default function Questionnaire() {
         <div className='btn btn-primary mt-3'>
           <input type="submit" />
         </div>
+        {success && <div>Successful submission</div> }
       </form>
     </div>
   )
